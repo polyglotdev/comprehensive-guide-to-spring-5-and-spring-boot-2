@@ -5,11 +5,10 @@ import com.domhallan.ecommercebackend.config.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Valid;
+
+import java.util.List;
 import java.util.Objects;
 
 @RestController
@@ -26,5 +25,11 @@ public class CategoryController {
     }
     categoryService.createCategory(category);
     return new ResponseEntity<>(new ApiResponse(true, "created the category"), HttpStatus.CREATED);
+  }
+
+  @GetMapping("/")
+  public ResponseEntity<List<Category>> getAllCategories() {
+    List<Category> body =  categoryService.listCategories();
+    return new ResponseEntity<>(body, HttpStatus.OK);
   }
 }
